@@ -15,8 +15,10 @@ $(document).ready(function () {
 
     
     $(document).on("click", "p", function () {
+
         // Empty the notes from the note section
         $("#note-modal").modal();
+        $("#post-click-modal").empty();
         $("#notes").empty();
         // Save the id from the p tag
         var thisId = $(this).attr("data-id");
@@ -36,7 +38,9 @@ $(document).ready(function () {
                 // A textarea to add a new note body
                 $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
                 // A button to submit a new note, with the id of the article saved to it
-                $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+                $("#notes").append("<button data-id='" + data._id + "' id='save-note'>Save Note</button>");
+                // A button to delete existing note, with the id of the article saved to it
+                $("#notes").append("<button data-id='" + data._id + "' id='delete-note'>Delete Note</button>");
 
                 // If there's a note in the article
                 if (data.note) {
@@ -48,7 +52,7 @@ $(document).ready(function () {
             });
     });
 
-    $(document).on("click", "#savenote", function () {
+    $(document).on("click", "#save-note", function () {
         // Grab the id associated with the article from the submit button
         var thisId = $(this).attr("data-id");
 
@@ -68,6 +72,31 @@ $(document).ready(function () {
                 // Log the response
                 console.log(data);
                 // Empty the notes section
+                $("#post-click-modal").append("Note saved.");
+                $("#notes").empty();
+            });
+
+        // Also, remove the values entered in the input and textarea for note entry
+        $("#titleinput").val("");
+        $("#bodyinput").val("");
+
+    })
+
+    $(document).on("click", "#delete-note", function () {
+        // Grab the id associated with the article from the submit button
+        var thisId = $(this).attr("data-id");
+
+        // Run a POST request to change the note, using what's entered in the inputs
+        $.ajax({
+                method: "DELETE",
+                url: "/articles/" + thisId,
+            })
+            // With that done
+            .then(function (data) {
+                // Log the response
+                console.log(data);
+                // Empty the notes section
+                $("#post-click-modal").append("Note deleted.");
                 $("#notes").empty();
             });
 
