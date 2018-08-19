@@ -13,8 +13,10 @@ $(document).ready(function () {
         console.log("scrape done");
     })
 
+    
     $(document).on("click", "p", function () {
         // Empty the notes from the note section
+        $("#note-modal").modal();
         $("#notes").empty();
         // Save the id from the p tag
         var thisId = $(this).attr("data-id");
