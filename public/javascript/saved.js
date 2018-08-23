@@ -4,7 +4,7 @@ $(document).ready(function () {
         // For each one
         for (var i = 0; i < data.length; i++) {
             // Display the apropos information on the page
-            $("#articles").append("<div class='article-block'> <p class='article-title' data-id='" + data[i]._id + "'><span class='article-intro'>Article title: </span>" + data[i].title + "</p> <a class='btn btn-success read-article-button' href='"+data[i].link + "'>Read Article</a>" + "<button class='btn btn-info unsave-article-button' data-id='" + data[i]._id + "'>Remove from saved list</button>"+"<button class='btn btn-dark see-note-button' data-id='" + data[i]._id + "'>See notes</button></div>");
+            $("#articles").append("<div class='article-block'> <p class='article-title' data-id='" + data[i]._id + "'><span class='article-intro'>Article title: </span>" + data[i].title + "</p> <a class='btn btn-light read-article-button' href='"+data[i].link + "'>Read Article</a>" + "<button class='btn btn-danger unsave-article-button' data-id='" + data[i]._id + "'>Remove from saved list</button>"+"<button class='btn btn-dark see-note-button' data-id='" + data[i]._id + "'>See notes</button></div>");
         }
     });
 
