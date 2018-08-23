@@ -2,6 +2,7 @@ body{
   text-align: center;
   margin: auto;
   background-color: lightgray;
+  font-size: 16px;
 }
 
 .spacer {
@@ -12,7 +13,7 @@ body{
 #articles {
     display: inline-block;
     overflow: auto;
-    width: 90%;
+    width: 80%;
     height: 800px;
     background-color: white;
   }
@@ -33,3 +34,20 @@ body{
     height: 200px;
     font-size: 18px;
   }
+
+.article-title {
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.article-intro {
+  font-weight: normal;
+}
+
+.article-block {
+margin: 10px;
+}
+
+.btn {
+  margin: 8px 8px;
+}

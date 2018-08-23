@@ -1,10 +1,10 @@
 $(document).ready(function () {
 
-    $.getJSON("/articles", function (data) {
+    $.getJSON("/saved-articles", function (data) {
         // For each one
         for (var i = 0; i < data.length; i++) {
             // Display the apropos information on the page
-            $("#articles").append("<div class='article-block'> <p class='article-title' data-id='" + data[i]._id + "'><span class='article-intro'>Article title: </span>" + data[i].title + "</p> <a class='btn btn-success read-article-button' href='"+data[i].link + "'>Read Article</a>" + "<button class='btn btn-info save-article-button' data-id='" + data[i]._id + "'>Save article</button>"+"<button class='btn btn-dark see-note-button' data-id='" + data[i]._id + "'>See notes</button></div>");
+            $("#articles").append("<div class='article-block'> <p class='article-title' data-id='" + data[i]._id + "'><span class='article-intro'>Article title: </span>" + data[i].title + "</p> <a class='btn btn-success read-article-button' href='"+data[i].link + "'>Read Article</a>" + "<button class='btn btn-info unsave-article-button' data-id='" + data[i]._id + "'>Remove from saved list</button>"+"<button class='btn btn-dark see-note-button' data-id='" + data[i]._id + "'>See notes</button></div>");
         }
     });
 
@@ -17,7 +17,7 @@ $(document).ready(function () {
     });
 
 
-});
+
 
 
 $(document).on("click", ".see-note-button", function () {
@@ -117,24 +117,30 @@ $(document).on("click", "#delete-note", function () {
     $("#bodyinput").val("");
 })
 
-$(document).on("click", ".save-article-button", function () {
+$(document).on("click", ".unsave-article-button", function () {
     // Grab the id associated with the article from the submit button
     var thisId = $(this).attr("data-id");
 
     // Run a POST request to change the note, using what's entered in the inputs
     $.ajax({
             method: "PUT",
-            url: "/saved-articles/" + thisId,
+            url: "/remove-from-saved-articles/" + thisId,
             data: {
-                saved: true
+                saved: false
             }
         })
         // With that done
         .then(function (data) {
             // Log the response
-            console.log("article saved");
+            console.log("article removed from saved list");
             console.log(data);
             // Empty the notes section
-            $("#save-article-modal").modal();
+            $("#unsave-article-modal").modal();
+
+            $('#unsave-article-modal').on('hidden.bs.modal', function () {
+                window.location.reload();
+              })
         });
+});
+
 });
